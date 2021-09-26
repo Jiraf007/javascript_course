@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div class = container>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+    </div>
+    
+    <script>
+        let arr = document.body.firstElementChild.children;
+        for (let elem of arr) {
+            elem.addEventListener('click', function(e1) {
+                let prev = elem.previousElementSibling;
+                let next = elem.nextElementSibling;
+                if (prev != null) {
+                    prev.classList.toggle('green');
+                }
+                if (next != null) {
+                    next.classList.toggle('green');
+                }
+                
+            })
+        }
+        
+        
+        
+    
+    </script>
+</body>
+</html>

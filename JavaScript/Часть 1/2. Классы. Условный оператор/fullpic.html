@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    
+    <div id="myBlock" class="box"></div>
+    <button id="myBtn">Показать полностью</button>
+    
+    <script>
+       myBtn.addEventListener('click', function() {
+        myBlock.classList.toggle('full');
+        if (myBtn.innerHTML == "Показать полностью") myBtn.innerHTML = "Скрыть";
+        else (myBtn.innerHTML = "Показать полностью");
+       })
+    
+    </script>
+</body>
+</html>

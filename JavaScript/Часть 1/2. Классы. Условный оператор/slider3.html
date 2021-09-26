@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="slider3css.css">
+</head>
+<body>
+    <div class="container">
+        <button class="btn" id="btn1"></button>
+        <div class="viewport">
+            <div id="slidesWrapper" class="show1">
+                <div class="slide" id="pic1"></div>
+                <div class="slide" id="pic2"></div>
+                <div class="slide" id="pic3"></div>
+            </div>
+        </div>
+        <button class="btn" id="btn2"></button>
+    </div>
+    
+    <script>
+       btn1.addEventListener('click', function() {
+            if (slidesWrapper.classList.contains('show2')) {
+                slidesWrapper.classList.remove('show2')
+                slidesWrapper.classList.add('show1');
+                btn1.classList.add('disable1');
+            }
+            else if (slidesWrapper.classList.contains('show3')) {
+                slidesWrapper.classList.remove('show3')
+                slidesWrapper.classList.add('show2');
+                btn2.classList.remove('disable2');
+            }
+        })
+        btn2.addEventListener('click', function() {
+            if (slidesWrapper.classList.contains('show2')) {
+                slidesWrapper.classList.remove('show2')
+                slidesWrapper.classList.add('show3');
+                btn2.classList.add('disable2');
+            }
+            else if (slidesWrapper.classList.contains('show1')) {
+                slidesWrapper.classList.remove('show1')
+                slidesWrapper.classList.add('show2');
+                btn1.classList.remove('disable1');
+            }
+        })
+        
+    
+    </script>
+</body>
+</html>

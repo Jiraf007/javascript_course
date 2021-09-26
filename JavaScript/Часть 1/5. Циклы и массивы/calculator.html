@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    
+    <input type="text" id="inp">
+    <button id="btn">Клик</button>
+    <p id="answer"></p>
+    
+    <script>
+        arr = [];
+        btn.addEventListener('click', function() {
+            let val = inp.value;
+            res = 0;
+            if (isFinite(val)) {
+                arr.push(parseInt(val));
+                inp.value = '';
+                answer.innerHTML = '';
+
+
+            }
+            else if (val == '+') {
+                for (let number of arr) {
+                    res += parseInt(number);
+                }
+                arr = [];
+                inp.value = res;
+                answer.innerHTML = '';
+
+            }
+            else if (val == '-') {
+                res = arr[0];
+                for (let i = 1; i < arr.length; i++) {
+                    res -= arr[i];
+                }
+                arr = [];
+                inp.value = res;
+                answer.innerHTML = '';
+
+            }
+            else if (val == '*') {
+                res = 1;
+                for (let number of arr) {
+                    res *= parseInt(number);
+                }
+                arr = [];
+                inp.value = res;
+                answer.innerHTML = '';
+
+            }
+            else if (val == '/') {
+                res = arr[0];
+                for (let i = 1; i < arr.length; i++) {
+                    res /= arr[i];
+                }
+                arr = [];
+                inp.value = res;
+                answer.innerHTML = '';
+
+            }
+            else {
+                inp.value = '';
+                answer.innerHTML = 'Вы ввели что-то не то...';
+            }
+            
+        })
+        
+        
+    
+    </script>
+</body>
+</html>

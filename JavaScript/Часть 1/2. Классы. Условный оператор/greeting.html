@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div>Введите Ваше имя</div>
+    <input id="userName" type="text">
+    <div>Введите Ваш возраст</div>
+    <input id="userAge" type="text">
+    <button id="myBtn">Поздороваться</button>
+    <div id="greeting">А</div>
+    
+    <script>
+       myBtn.addEventListener('click', function() {
+            let usName = userName.value;
+            let usAge = parseInt(userAge.value);
+            let greet = greeting.innerHTML;
+            if (usAge <= 0) greet = `Извини, ${usName}, но наш сайт для тех, кто уже родился`;
+            else if (usAge >= 1 && usAge <= 2) greet = `Агу-гу-гу, ${usName}!`;
+            else if (usAge >= 3 && usAge <= 6) greet = `Здравствуй, малыш ${usName}!`;
+            else if (usAge >= 7 && usAge <= 20) greet = `Привет, ${usName}!`;
+            else if (usAge >= 21 && usAge <= 120) greet = `Добрый день, ${usName}!`;
+            else greet = `Извини, ${usName}, но столько не живут :(`
+            greeting.innerHTML = greet;
+        })
+    
+    </script>
+</body>
+</html>

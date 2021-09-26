@@ -1,0 +1,20 @@
+.container {
+    width: 600px;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.blue {
+    background-color: blue;
+}
+
+div {
+    display: inline-block;
+    margin: 10px;
+}
+
+.white {
+    background: white !important;
+}

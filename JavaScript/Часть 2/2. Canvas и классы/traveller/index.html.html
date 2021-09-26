@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Путешественник</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    canvas {
+      margin: 20px 0;
+      display: block;
+      width: 800px;
+      box-shadow: 0 0 2px 2px rgba(68, 68, 65, 0.205)
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+
+      <!-- <div class="col col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Управление</h5>
+            <div class="row mt-2">
+              <div class="col col-4 text-center">
+                <button id="BtnMoveUp" type="button" class="btn btn-primary">Вверх</button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col col-2">
+                <button id="BtnMoveLeft" type="button" class="btn btn-primary">Влево</button>
+              </div>
+              <div class="col col-2">
+                <button id="BtnMoveRight" type="button" class="btn btn-primary">Вправо</button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col col-4 text-center">
+                <button id="BtnMoveDown" type="button" class="btn btn-primary">Вниз</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col col-6 parameters">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Параметры</h5>
+            <table class="table">
+              <tr>
+                <th scope="row">Очков</th>
+                <td id="score">0</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="game" width="800" height="400"></canvas>
+  </div>
+  <div class="info"></div>
+
+  <script>
+    // Получаем контекст для рисования на Canvas
+    let ctx = game.getContext('2d');
+
+    // генератор случайных чисел
+    // Возвращает случайное число между min (включительно) и max (не включая max)
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    // Создание класса спрайта - самостоятельно
+    let Circle = class {
+      constructor(x, y, r, color) {
+        this.x = x - r;
+        this.y = y - r;
+        this.r = r;
+        this.color = color;
+      }
+      move(x, y) {
+        this.x += x;
+        this.y += y;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Создание нашего персонажа. Внутри скобок указать параметры
+    let player = new Circle(400, 200, 10, 'green');
+
+    // создание массива, в котором будем хранить собираемые кружки
+    let targetsArr = [];
+
+    // наполняем массив
+    for (let i = 0; i < 10; i++) {
+      targetsArr.push(new Circle(getRandomInt(10, 790), getRandomInt(10, 390), 10, 'yellow'));
+    }
+
+    function collisionDetection(obj1, obj2) {
+      let detect = false;
+      if (((obj1.y + obj1.r * 2) > obj2.y) && (obj1.y < (obj2.y + obj2.r * 2))) {
+        if (((obj1.x + obj1.r * 2) >= obj2.x) && (obj1.x <= (obj2.x + obj2.r * 2))) detect = true;
+      }
+      if (((obj1.x + obj1.r * 2) > obj2.x) && (obj1.x < (obj2.x + obj2.r * 2))) {
+        if (((obj1.y + obj1.r * 2) == obj2.y) || (obj1.y == (obj2.y + obj2.r * 2))) detect = true;
+      }
+      return detect;
+    }
+
+    // Функция перерисовки canvas
+    function redraw() {
+      // Очистить весь канвас
+      ctx.clearRect(0, 0, 800, 400);
+      // рисуем игрока
+      player.draw();
+
+      //перерисовываем города-цели
+      for (let elem of targetsArr) {
+        elem.draw();
+      }
+    }
+
+    redraw();
+    // ------Обработка нажатий на кнопки-------
+    // Движение вверх
+    document.addEventListener('keydown', function (e) {
+      if (e.key == 'ArrowUp') {
+        // 1. Передвигаем персонажа
+        player.move(0, -5);
+        // 2. Проверяем на соприкосновение с городом-целью
+        for (let index in targetsArr) {
+          if (collisionDetection(player, targetsArr[index])) {
+            targetsArr.splice(index, 1);
+            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+          }
+        }
+        // 3. Перерисовываем всю сцену
+        redraw();
+        if (targetsArr.length == 0) {
+          document.querySelector('.info').innerHTML = 'YOU WON!';
+        }
+      }
+
+      if (e.key == 'ArrowDown') {
+        // 1. Передвигаем персонажа
+        player.move(0, 5);
+        // 2. Проверяем на соприкосновение с городом-целью
+        for (let index in targetsArr) {
+          if (collisionDetection(player, targetsArr[index])) {
+            targetsArr.splice(index, 1);
+            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+          }
+        }
+        // 3. Перерисовываем всю сцену
+        redraw();
+        if (targetsArr.length == 0) {
+          document.querySelector('.info').innerHTML = 'YOU WON!';
+        }
+      }
+
+      if (e.key == 'ArrowLeft') {
+        // 1. Передвигаем персонажа
+        player.move(-5, 0);
+        // 2. Проверяем на соприкосновение с городом-целью
+        for (let index in targetsArr) {
+          if (collisionDetection(player, targetsArr[index])) {
+            targetsArr.splice(index, 1);
+            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+          }
+        }
+        // 3. Перерисовываем всю сцену
+        redraw();
+        if (targetsArr.length == 0) {
+          document.querySelector('.info').innerHTML = 'YOU WON!';
+        }
+      }
+
+      if (e.key == 'ArrowRight') {
+        // 1. Передвигаем персонажа
+        player.move(5, 0);
+        // 2. Проверяем на соприкосновение с городом-целью
+        for (let index in targetsArr) {
+          if (collisionDetection(player, targetsArr[index])) {
+            targetsArr.splice(index, 1);
+            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+          }
+        }
+        // 3. Перерисовываем всю сцену
+        redraw();
+        if (targetsArr.length == 0) {
+          document.querySelector('.info').innerHTML = 'YOU WON!';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

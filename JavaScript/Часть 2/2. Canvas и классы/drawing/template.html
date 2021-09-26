@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Прямоугольник</h5>
+            <p class="card-text">Нарисовать прямоуголник по координатам:</p>
+            <input id="rect_x" type="text" class="form-control" placeholder="x">
+            <input id="rect_y" type="text" class="form-control" placeholder="y">
+            <input id="rect_width" type="text" class="form-control" placeholder="width">
+            <input id="rect_height" type="text" class="form-control" placeholder="height">
+            <input id="rect_color" type="text" class="form-control" placeholder="color">
+            <button id="BtnCreateRect" type="button" class="btn btn-primary">Нарисовать</button>
+          </div>
+        </div>
+      </div>
+      <div class="col col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Окружность</h5>
+            <p class="card-text">Нарисовать окружность по координатам:</p>
+            <input id="cir_x" type="text" class="form-control" placeholder="x">
+            <input id="cir_y" type="text" class="form-control" placeholder="y">
+            <input id="cir_r" type="text" class="form-control" placeholder="r">
+            <input id="cir_color" type="text" class="form-control" placeholder="color">
+            <button id="BtnCreateCir" type="button" class="btn btn-primary">Нарисовать</button>
+            <button id="clear">Очистить поле</button>
+          </div>
+        </div>
+      </div>
+      <div class="col col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Линия</h5>
+            <p class="card-text">Нарисовать линию по координатам:</p>
+            <input id="x1" type="text" class="form-control" placeholder="x1">
+            <input id="y1" type="text" class="form-control" placeholder="y1">
+            <input id="x2" type="text" class="form-control" placeholder="x2">
+            <input id="y2" type="text" class="form-control" placeholder="y2">
+            <button id="BtnCreateLine" type="button" class="btn btn-primary">Нарисовать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <canvas id="game"></canvas>
+  <script>
+    // Получаем контекст для рисования на Canvas
+    let ctx = game.getContext('2d');
+
+    // ------Обработка нажатий на кнопки-------
+
+    // Рисуем прямоугольник
+    document.querySelector('#BtnCreateRect').addEventListener('click', function () {
+
+      ctx.clearRect(0, 0, 150, 150);
+
+      let x = parseInt(document.querySelector('#rect_x').value);
+      let y = parseInt(document.querySelector('#rect_y').value);
+      let width = parseInt(document.querySelector('#rect_width').value);
+      let height = parseInt(document.querySelector('#rect_height').value);
+      let color = document.querySelector('#rect_color').value;
+
+      // Место для вашего кода
+      // ctx.beginPath();
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, width, height);
+      // ctx.fill();
+    });
+
+    document.querySelector('#BtnCreateCir').addEventListener('click', function () {
+
+      ctx.clearRect(0, 0, 150, 150);
+
+      let x = parseInt(document.querySelector('#cir_x').value);
+      let y = parseInt(document.querySelector('#cir_y').value);
+      let r = parseInt(document.querySelector('#cir_r').value);
+      let color = document.querySelector('#cir_color').value;
+      // Место для вашего кода
+      ctx.beginPath();
+      ctx.fillStyle = color;
+      ctx.arc(x, y, 30, 0, Math.PI * 2, true);
+      ctx.fill();
+    });
+
+    document.querySelector('#BtnCreateLine').addEventListener('click', function () {
+
+      ctx.clearRect(0, 0, 150, 150);
+
+      let x1 = parseInt(document.querySelector('#x1').value);
+      let y1 = parseInt(document.querySelector('#y1').value);
+      let x2 = parseInt(document.querySelector('#x2').value);
+      let y2 = parseInt(document.querySelector('#y2').value);
+      // Место для вашего кода
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    });
+
+    document.querySelector('#clear').addEventListener('click', function () {
+      ctx.clearRect(0, 0, 150, 150);
+
+    })
+  </script>
+</body>
+
+</html>

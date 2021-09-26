@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 300px;
+            height: 300px;
+            font-size: 50px;
+            text-align: center;
+            background-color: blueviolet;
+            line-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="txt">3</div>
+    </div>
+    
+    
+    <script>
+        let timerId = setInterval(function() {
+            let a = parseInt(txt.innerHTML);
+            a -= 1;
+            txt.innerHTML = a;
+        }, 1000);
+        setTimeout(function() {
+            clearInterval(timerId);
+            txt.innerHTML = '<img src="https://image.freepik.com/free-vector/cartoon-boom-explosion-comic-speech-bubble-comic-book-page_93083-264.jpg" width="300" height="300">';
+        }, 3000)
+    </script>
+</body>
+</html>

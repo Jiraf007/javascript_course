@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Arial', sans-serif;
+            color: #2d3436;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+
+        .container {
+            width: 700px;
+            margin: auto;
+            text-align: justify;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 49%;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 2px solid #636e72;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #00b894;
+            font-weight: 700;
+            background-color: #55efc4;
+            color: #fff
+        }
+
+        #out {
+            font-size: 30px;
+            font-weight: 900;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input type="number" id="first">
+    <input type="number" id="second">
+    <button>Максимум</button>
+    <p id="out">
+
+    </p>
+</div>
+
+<script>
+    // Создаем функцию для нахождения максимального из двух значений
+    function max(a, b) {
+        if (a > b) return a;
+        else return b;  
+    }
+
+    // Получаем элементы документа - поля ввода
+    let firstInput = document.querySelector('#first');
+    let secondInput = document.querySelector('#second');
+
+    document.querySelector('button').addEventListener('click', function () {
+        // Получаем значения полей ввода
+        let f = parseInt(firstInput.value);
+        let s = parseInt(secondInput.value);
+
+        // Передаем значения в функцию. Функция находит наибольшее и возвращает назад
+        // Результат функции сохраняем в переменную res (result - результат)
+        let res = max(f, s);
+
+        // Выводит результат в элемент #out
+        document.querySelector('#out').innerHTML = res;
+    })
+
+
+</script>
+</body>
+</html>

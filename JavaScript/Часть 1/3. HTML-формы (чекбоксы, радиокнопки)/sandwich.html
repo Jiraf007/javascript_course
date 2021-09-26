@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div id="myForm">
+        <div class="ingredients">
+        <label><input type="radio" name="ingred1" id="bread">Хлеб</label><br>
+        <label><input type="radio" name="ingred1" id="bun">Булочка</label><br>
+        <label><input type="radio" name="ingred1" id="nothing">Ничего</label><br>
+        </div>
+        <div class="ingredients">
+            <label><input type="radio" name="ingred2" id="cheese">Сыр</label><br>
+            <label><input type="radio" name="ingred2" id="sausage">Колбаса</label><br>
+            <label><input type="radio" name="ingred2" id="empty">Пустота</label><br>
+        </div>
+    </div>
+    <button id="myBtn">Что я могу приготовить?</button>
+    <div id="answer" class="ingredients">Пока ничего</div>
+    
+    <script>
+       myBtn.addEventListener('click', function() {
+            let a = '';
+            let b = '';
+            if (bread.checked) a = 'Бутерброд';
+            else if (bun.checked) a = 'Сэндвич';
+            else if (nothing.checked) a = 'Ничего';
+
+            if (cheese.checked) b = 'c сыром';
+            else if (sausage.checked) b = 'с колбасой';
+            else if (empty.checked) b = 'с пустотой';
+
+            if (a == '' || b == '') {
+                a = 'Пока ничего';
+                b = ''
+            }
+
+            answer.innerHTML = `${a} ${b}`
+        })
+        
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div class="container">
+        <button class="btn" id="btn1"></button>
+        <div class="viewport">
+            <div id="slidesWrapper">
+                <div class="slide trans show" id="pic1"></div>
+                <div class="slide trans show" id="pic2"></div>
+                <div class="slide trans show" id="pic3"></div>
+            </div>
+        </div>
+        <button class="btn" id="btn2"></button>
+    </div>
+    
+    <script>
+       btn1.addEventListener('click', function() {
+            if (pic2.classList.contains('r300')) {
+                pic2.classList.remove('r300');
+                pic2.classList.add('l300');
+                pic3.classList.remove('l600');
+                pic3.classList.add('l300');
+                pic1.classList.remove('r300');
+                pic1.classList.add('r600');
+            }
+            else if (pic2.classList.contains('show')) {
+                pic2.classList.remove('show');
+                pic2.classList.add('r300');
+                pic3.classList.add('l600');
+                pic1.classList.add('r300');
+            }
+            else {
+                pic2.classList.remove('l300');
+                pic2.classList.add('show');
+                pic3.classList.remove('l300');
+                pic1.classList.remove('r600');
+            }
+        })
+        btn2.addEventListener('click', function() {
+            if (pic2.classList.contains('l300')) {
+                pic2.classList.remove('l300');
+                pic2.classList.add('r300');
+                pic3.classList.remove('l300');
+                pic3.classList.add('l600');
+                pic1.classList.remove('r600');
+                pic1.classList.add('r300');
+            }
+            else if (pic2.classList.contains('show')) {
+                pic2.classList.remove('show');
+                pic2.classList.add('l300');
+                pic3.classList.add('l300');
+                pic1.classList.add('r600');
+            }
+            else {
+                pic2.classList.remove('r300');
+                pic2.classList.add('show');
+                pic3.classList.remove('l600');
+                pic1.classList.remove('r300');
+            }
+        })
+        
+    
+    </script>
+</body>
+</html>

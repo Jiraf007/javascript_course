@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="slider1css.css">
+</head>
+<body>
+    <div class="viewport">
+        <div id="slidesWrapper">
+            <div class="slide" id="pic1"></div>
+            <div class="slide" id="pic2"></div>
+            <div class="slide" id="pic3"></div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="btn" id="btn1"></button>
+        <button class="btn" id="btn2"></button>
+        <button class="btn" id="btn3"></button>
+
+    </div>
+    
+    <script>
+       btn1.addEventListener('click', function() {
+           pic2.classList.remove('show2');
+           pic3.classList.remove('show3');
+        })
+        btn2.addEventListener('click', function() {
+            pic2.classList.add('show2');
+            pic3.classList.remove('show3');
+        })
+        btn3.addEventListener('click', function() {
+            pic2.classList.remove('show2');
+            pic3.classList.add('show3');
+        })
+    
+    </script>
+</body>
+</html>

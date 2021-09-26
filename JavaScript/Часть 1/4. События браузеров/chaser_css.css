@@ -1,0 +1,16 @@
+#field {
+    width: 300px;
+    height: 300px;
+    border: solid 1px black;
+}
+
+#element {
+    width: 30px;
+    height: 30px;
+    border: solid 2px green;
+    border-radius: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.1s;
+}

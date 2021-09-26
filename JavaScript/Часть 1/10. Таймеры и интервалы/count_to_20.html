@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div id="container">0</div>
+    
+    
+    <script>
+        let timerId = setInterval(function() {
+            let a = parseInt(container.innerHTML);
+            a += 1;
+            container.innerHTML = a;
+        }, 100);
+        setTimeout(function() {
+            clearInterval(timerId);
+        }, 2000)
+    </script>
+</body>
+</html>

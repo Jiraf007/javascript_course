@@ -1,0 +1,73 @@
+.preloader {
+    overflow: hidden;
+    margin: auto;
+    /* margin-top: 30vh; */
+    width: 100px;
+    height: 100px;
+    background: url('../img/lego.png') no-repeat center;
+    background-size: cover;
+    position: relative;
+    z-index: 10000;
+}
+
+#progressLine {
+    height: 10px;
+    position: relative;
+    background-color: rgb(255, 36, 36);
+    top: 15px;
+}
+  
+  #progress {
+    height: 10px;
+    background-color: rgb(252, 133, 133);
+    position: relative;
+  
+}
+
+
+.kit_slides_wrapper {
+    width: 10000px !important;
+    display: flex;
+}
+
+
+.viewport {
+    position: relative;
+    left: 50px;
+    width: 800px;
+    overflow: hidden;
+}
+
+#slidesWrapper {
+    left: 0px;
+    transition: 0.5s;
+}
+
+.display-none {
+    display: none;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+footer {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color:gold;
+    font-size: 30px;
+    bottom: 50px;
+    right: 50px;
+    border-radius:100%;
+    opacity: 0;
+    transition: opacity 1s;   
+}

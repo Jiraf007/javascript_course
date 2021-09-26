@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="change_color_sibling_css.css">
+</head>
+<body>
+    <div class = container>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+        <div class="object"></div>
+    </div>
+    
+    <script>
+        let arr = document.body.firstElementChild.children;
+        for (let elem of arr) {
+            let a = 0;
+            elem.addEventListener('mouseover', function(e1) {
+                a = 1;
+                
+            })
+            elem.addEventListener('mouseout', function(e2) {
+                a = 0;
+                elem.innerHTML = ``;
+            })
+            elem.addEventListener('mousemove', function(e3) {
+                if (a == 1) {
+                    box = elem.getBoundingClientRect();
+                    let x = e3.clientX - box.left +1;
+                    let y = e3.clientY - box.top +1;
+                    elem.innerHTML = `${x}px:${y}px`;
+                }
+            })
+                
+        }
+        
+        
+        
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #e0e0e5;
+}
+
+footer {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #3dd;
+    font-size: 30px;
+    bottom: 100px;
+    right: 100px;
+    border-radius:100%;
+    opacity: 0;
+    transition: opacity 1s;   
+}
+
+.vis {
+    opacity: 1;
+}
+
+nav {
+  margin: auto;
+  background-color: #fff;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#progressLine {
+  height: 10px;
+  background-color: rgb(255, 36, 36);
+  left: -1500px;
+}
+
+#progress {
+  height: 10px;
+  background-color: rgb(252, 133, 133);
+  position: relative;
+
+}
+
+nav > ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 1.2em;
+}
+
+a > li {
+    margin: 0 50px;
+    transition: all 0.5s;
+}
+
+main {
+  width: 760px;
+  padding: 20px;
+  margin: 80px auto 0px;
+  background-color: #fff;
+}
+
+img {
+  width: 200px;
+  display: block;
+  margin: auto;
+}
+
+nav > .first_img {
+    height: 300px;
+    margin: auto;
+    width: auto;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #44d;
+  
+}
+
+.bright {
+    color: #3dd;
+}

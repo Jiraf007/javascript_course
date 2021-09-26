@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <button id="btn">Сгенерировать</button><br>
+    <div id="container"></div>
+    
+    
+    <script>
+        function generator(min, max) {
+            let a = Math.floor(Math.random() * (max - min)) + min;
+            return a;
+        }
+
+        function randomColor() {
+            let min = 0;
+            let max = 255;
+            let r = generator(min, max);
+            let g = generator(min, max);
+            let b = generator(min, max);
+            let color = `rgb(${r}, ${g}, ${b})`;
+            return color;
+        }
+
+        function createElem(width, height, radius, color) {
+            let elem = document.createElement('div');
+            elem.style.width = width + 'px';
+            elem.style.height = height + 'px';
+            elem.style.borderRadius = radius + '%';
+            elem.style.display = 'inline-block';
+            elem.style.backgroundColor = color;
+            return elem;
+        }
+
+
+        btn.addEventListener('click', function() {
+            let min = 10;
+            let max = 100;
+            count = generator(min, max);
+            for (let i = 1; i <= count; i++) {  
+                let width = generator(min, max);
+                let height = generator(min, max);
+                min = 0;
+                radius = generator(min, max);
+                color = randomColor();
+                let elem = createElem(width, height, radius, color);
+                container.appendChild(elem);
+                min = 10;
+            }
+        })
+    </script>
+</body>
+</html>

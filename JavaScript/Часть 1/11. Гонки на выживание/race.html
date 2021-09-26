@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="race_css.css">
+    <title>Document</title>
+
+</head>
+<body class="screen">
+    <div class="container">
+        <div id="road"></div>
+        <div id="lives"></div>
+        <div id="gameOver"></div>
+    </div>
+
+    <script>
+        // Переменные для хранения параметров
+        let playerX;
+        let playerY;
+        let playerDirY;
+        let playerSpeed;
+        let roadX = 0;
+        let playerLives = 3;
+        let lifeX;
+        let lifeY;
+
+        let min = 10;
+        let max = 360;
+
+    
+        function createPlayer() {
+            // создадим элемент DIV
+            let player = document.createElement("div");
+            // добавим к нему класс car
+            player.classList.add("car");
+            // вставим созданный элемент на страницу в конец body
+            document.body.firstElementChild.appendChild(player);
+            
+            // Настроим параметры машинки
+            playerX = 40;
+            playerY = 0;
+            playerDirY = 0;
+            playerSpeed = 5;
+    
+            // вернем ссылку на добавленный на страницу элемент DIV, чтобы иметь к нему доступ
+            // в дальнейшем
+            return player;
+        }
+
+        function createBarrel(startX, startY) {
+            let barrel = document.createElement("div");
+            barrel.style.left = startX +'px';
+            barrel.style.top = startY +'px';
+            barrel.classList.add('barrel');
+            // barrelX = startX;
+            // barrelY = startY;
+            document.body.firstElementChild.appendChild(barrel);
+            return barrel;
+        }
+
+        function createLife(startX, startY) {
+            let life = document.createElement("div");
+            life.style.left = startX +'px';
+            life.style.top = startY +'px';
+            life.classList.add('life');
+            lifeX = startX;
+            lifeY = startY;
+            document.body.firstElementChild.appendChild(life);
+            return life;
+        }
+
+        function createLifeInPanel() {
+            let lifeInPanel = document.createElement("div");
+            // life.style.top = 10 +'px';
+            lifeInPanel.classList.add('life-in-panel');
+            lives.appendChild(lifeInPanel);
+            return lifeInPanel;
+        }
+
+        function randomInt(min, max) {
+            let number = Math.floor(Math.random() * (max - min)) + min;
+            return number;
+        }
+
+        let playerWidth = 100;
+        let playerHeight = 60;
+        let barrelWidth = 45;
+        let barrelHeight = 51;
+        let lifeWidth = 45;
+        let lifeHeight = 45;
+
+        function collisionDetectionWithLife(obj1, obj2) {
+            let detect = false;
+            let playerRight = playerX + playerWidth;
+            let lifeRight =lifeX + lifeWidth;
+            let playerBottom = playerY + playerHeight;
+            let lifeBottom = lifeY + lifeHeight;
+            if ((playerBottom > lifeY) && (playerY < lifeBottom)) {
+                if ((playerRight >= lifeX) && (playerX <= lifeRight)) detect = true;
+            }
+            if ((playerRight > lifeX) && (playerX < lifeRight)) {
+                if ((playerBottom == lifeY) || (playerY == lifeBottom)) detect = true;
+            }
+            return detect;
+        }
+
+        function collisionDetection(obj1, index) {
+            let detect = false;
+            let playerRight = playerX + playerWidth;
+            let barrelRight = barrelX[index] + barrelWidth;
+            let playerBottom = playerY + playerHeight;
+            let barrelBottom = barrelY[index] + barrelHeight;
+            if ((playerBottom > barrelY[index]) && (playerY < barrelBottom)) {
+                if ((playerRight >= barrelX[index]) && (playerX <= barrelRight)) detect = true;
+            }
+            if ((playerRight > barrelX[index]) && (playerX < barrelRight)) {
+                if ((playerBottom == barrelY[index]) || (playerY == barrelBottom)) detect = true;
+            }
+            return detect;
+        }
+
+
+    
+        // примем и запомним ссылку на созданный в функции элемент машинки
+        // он пригодится нам дальше, чтобы управлять машинкой
+        let player = createPlayer();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "ArrowUp")
+                playerDirY = -1;
+
+            if (e.key === "ArrowDown")
+                playerDirY = 1;
+        });
+
+        document.addEventListener('keyup', function(e1) {
+            playerDirY = 0;
+        });
+
+        function game() {
+            // Изменяем параметры объектов 
+            playerY += playerDirY * playerSpeed;
+            roadX -= 5;
+
+            // Перемещаем объекты на сцене
+            // Помнишь, мы сохраняли ссылку на созданную машинку?
+            // Ну так вот теперь с помощщью нее управляем стилями элемента
+            player.style.top = playerY + 'px'; 
+            player.style.left = playerX + 'px';
+
+            road.style.left = roadX + 'px';
+            if (roadX == -850) {
+                road.style.left = 0;
+                roadX = 0;
+            }
+
+            lifeX -= 5;
+            life.style.top = lifeY + 'px'; 
+            life.style.left = lifeX + 'px';
+            if (lifeX <= -45) {
+                lifeY = randomInt(min, max);
+                lifeX = 1200; 
+            }
+            if (collisionDetectionWithLife(player, life)){
+                if (playerLives < 3) {
+                    lifeY = randomInt(min, max); //---
+                    lifeX = 1200;
+                    playerLives += 1;
+                    createLifeInPanel();
+                }
+            }
+
+
+            for (let index in barrelArr) {
+                barrelX[index] -= 5; // ---
+                barrelArr[index].style.left = barrelX[index] + 'px'; //---
+                barrelArr[index].style.top = barrelY[index] + 'px'; //---
+                if (barrelX[index] <= -45) { //---
+                    barrelY[index] = randomInt(min, max); //---
+                    barrelX[index] = 610; //---
+                } //---
+                if (collisionDetection(player, index)){
+                    barrelY[index] = randomInt(min, max);
+                    barrelX[index] = 610;
+                    playerLives -= 1;
+                    lives.lastElementChild.remove();
+                }
+
+            }
+            
+            // после в конце выполнения функции заставим ее поместить
+            // саму себя в очередь на выполнение при следующей браузерной перерисовке!
+            if (playerLives != 0) requestAnimationFrame(game);
+            else {
+                gameOver.innerHTML = 'GAME OVER';
+                gameOver.classList.add('game-over');
+            }
+            
+        }
+
+        let barrelArr = [];
+        let barrelX = [200, 700, 450];
+        let barrelY = [200, 50, 250];
+        barrelArr[0] = createBarrel(200, 200);
+        barrelArr[1] = createBarrel(700, 50);
+        barrelArr[2] = createBarrel(450, 250);
+
+        let life = createLife(1000, randomInt(min, max));
+
+        for (let i = 1; i <= playerLives; i++) {
+            createLifeInPanel();
+        }
+
+        // Start game
+        game();
+    </script>
+</body>
+</html>

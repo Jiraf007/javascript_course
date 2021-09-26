@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div id="myForm">
+        <div class="questions">
+            <div>Каким лучше быть?</div>
+            <label><input type="radio" name="question1" id="smart">Умным</label><br>
+            <label><input type="radio" name="question1" id="beautiful">Красивым</label><br>
+        </div>
+        <div class="questions">
+            <div>Какой цвет лучше?</div>
+            <label><input type="radio" name="question2" id="green">Зеленый</label><br>
+            <label><input type="radio" name="question2" id="red">Красный</label><br>
+        </div>
+        <div class="questions">
+            <div>Что лучше?</div>
+            <label><input type="radio" name="question3" id="round">Круглое</label><br>
+            <label><input type="radio" name="question3" id="square">Квадратное</label><br>
+        </div>
+
+    </div>
+    <button id="myBtn">Узнать результат</button>
+    <div id="answer"></div>
+    
+    <script>
+       myBtn.addEventListener('click', function() {
+            if (smart.checked) {
+                if (green.checked) {
+                    if (round.checked) answer.innerHTML = 'Ты артишок';
+                    else if (square.checked) answer.innerHTML = 'Ты брокколи'
+                }
+                else if (red.checked) {
+                    if (round.checked) answer.innerHTML = 'Ты помидор';
+                    else if (square.checked) answer.innerHTML = 'Ты редис'
+                }
+            }
+            else if (beautiful.checked) {
+                if (green.checked) {
+                    if (round.checked) answer.innerHTML = 'Ты оливка';
+                    else if (square.checked) answer.innerHTML = 'Ты огурец'
+                }
+                else if (red.checked) {
+                    if (round.checked) answer.innerHTML = 'Ты болгарский перец';
+                    else if (square.checked) answer.innerHTML = 'Ты чел'
+                }
+            }
+            else answer.innerHTML = 'Ты ответил не на все вопросы!'
+            
+        })
+        
+    
+    </script>
+</body>
+</html>

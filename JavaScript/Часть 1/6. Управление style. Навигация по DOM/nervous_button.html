@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" type="text/css" href="mysite.css"> -->
+</head>
+<body>
+    <button id="btn" style="position: relative;">Аташол</button>
+    
+    <script>
+        btn.addEventListener('mouseover', function(e1) {
+            let min = 0;
+            let max = 500;
+            let x = Math.floor(Math.random() * (max - min)) + min;
+            let y = Math.floor(Math.random() * (max - min)) + min;
+            btn.style.top = y + 'px';
+            btn.style.left = x + 'px';
+
+        })
+        
+    
+    </script>
+</body>
+</html>

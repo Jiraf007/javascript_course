@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div class="viewport">
+        <div id="slidesWrapper">
+            <div class="slide" id="pic1"></div>
+            <div class="slide" id="pic2"></div>
+            <div class="slide" id="pic3"></div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="btn" id="btn1"></button>
+        <button class="btn" id="btn2"></button>
+        <button class="btn" id="btn3"></button>
+    </div>
+    <div id="txt1">Апполон (4 век до н.э.)</div>
+    
+    <script>
+       btn1.addEventListener('click', function() {
+            slidesWrapper.classList.add('show1');
+            slidesWrapper.classList.remove('show2');
+            slidesWrapper.classList.remove('show3');
+            txt1.innerHTML = 'Апполон (4 век до н.э.)'
+        })
+        btn2.addEventListener('click', function() {
+            slidesWrapper.classList.remove('show1');
+            slidesWrapper.classList.add('show2');
+            slidesWrapper.classList.remove('show3');
+            txt1.innerHTML = 'Леонардо дай Винчик "Джоконда анаконда"'
+        })
+        btn3.addEventListener('click', function() {
+            slidesWrapper.classList.remove('show1');
+            slidesWrapper.classList.remove('show2');
+            slidesWrapper.classList.add('show3');
+            txt1.innerHTML = 'Мыслитель (10 век до н.э.)'
+
+        })
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Четные</title>
+    <link rel="stylesheet" href="css/uikit.min.css">
+    <style>
+        body{
+            background-color: #6af699;
+        }
+    </style>
+</head>
+<body>
+    <!-- Здесь много страшной магии верстки. Игнорируем её, наша цель - скрипт!!! (^_~)  -->
+    <div class="uk-container uk-container-xsmall uk-flex uk-flex-middle" uk-height-viewport>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-large uk-card-body">
+            <div uk-grid>
+                <div class="uk-width-1-2">
+                    <!-- Это поле для ввода минимального числа -->
+                    <input type="number" id="min" class="uk-input uk-form-large" placeholder="Введите min">
+                </div>
+                <div class="uk-width-1-2">
+                    <!-- Это поле для ввода максимального числа -->
+                    <input type="number" id="max" class="uk-input uk-form-large" placeholder="Введите max">
+                </div>
+                <div class="uk-width-1-1">
+                    <!-- Это кнопка для произведения расчетов -->
+                    <button id="btn" class="uk-button uk-button-primary uk-width-1-1">Посчитать сумму</button>
+                </div>
+                <p class="uk-text-large uk-text-bolder uk-text-center uk-width-1-1 uk-text-danger">Сумма = <span id="summ">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Этот скрипт должен остаться подключенным!!! -->
+    <script src="js/uikit.min.js"></script>
+
+    <!-- А в этом теге пишем свой код -->
+    <script>
+        'use strict';
+        btn.addEventListener('click', function() {
+            let a = parseInt(min.value);
+            let b = parseInt(max.value);
+            let s = 0;
+            
+            for (let i = a; i <= b; i++) {
+                s += i;
+            }
+            summ.innerHTML = s;
+        })
+        // Да-да, прямо вот тут пишем код  ( . .)φ__ 
+        
+    </script>
+</body>
+</html>

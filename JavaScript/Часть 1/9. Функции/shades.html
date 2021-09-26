@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <input type="text" id="inp">
+    <button id="btn">Сгенерировать</button><br>
+    <div id="container"></div>
+    
+    
+    <script>
+        function generator(min, max) {
+            let a = Math.floor(Math.random() * (max - min)) + min;
+            return a;
+        }
+
+        function randomColor(hue) {
+            let min = 0;
+            let max = 255;
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            if (hue == 'red') {
+                r = 255;
+                g = generator(min, max - 80);
+                b = generator(min, max - 80);
+            }
+            if (hue == 'green') {
+                r = generator(min, max - 80);
+                g = 255;
+                b = generator(min, max - 80);
+            }
+            if (hue == 'blue') {
+                r = generator(min, max - 80);
+                g = generator(min, max - 80);
+                b = 255;
+            }
+            let color = `rgb(${r}, ${g}, ${b})`;
+            return color;
+        }
+
+        btn.addEventListener('click', function() {
+            let color = randomColor(inp.value);
+            document.body.style.backgroundColor = color;
+        })
+    </script>
+</body>
+</html>

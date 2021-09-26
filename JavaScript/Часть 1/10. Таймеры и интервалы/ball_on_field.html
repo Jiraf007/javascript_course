@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div class="pole">
+        <div id='theBall' class="ball corner1"></div>
+    </div>
+    
+    
+    <script>
+        let timerId = setInterval(function() {
+            if (theBall.classList.contains('corner1')) {
+                theBall.classList.remove('corner1');
+                theBall.classList.add('corner2');
+            }
+            else if (theBall.classList.contains('corner2')) {
+                theBall.classList.remove('corner2');
+                theBall.classList.add('corner3');
+            }
+            else if (theBall.classList.contains('corner3')) {
+                theBall.classList.remove('corner3');
+                theBall.classList.add('corner4');
+            }
+            else if (theBall.classList.contains('corner4')) {
+                theBall.classList.remove('corner4');
+                theBall.classList.add('corner1');
+            }
+        }, 1000)
+    </script>
+</body>
+</html>

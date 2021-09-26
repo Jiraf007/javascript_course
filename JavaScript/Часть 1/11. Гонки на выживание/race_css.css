@@ -1,0 +1,65 @@
+
+
+.container {
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    position: absolute;
+}
+
+#road {
+    width: 1450px;
+    height: 400px;
+    background: url('img/road1.jpg');
+    background-size: contain;
+    position: absolute;
+}
+
+
+.car {
+    width: 100px;
+    height: 60px;
+    /* картинку машины ты можешь выбрать и подставить любую, там есть несколько вариантов */
+    background: url("img/green_car.png") no-repeat center;
+    background-size: cover;
+    position: absolute;
+}
+
+.barrel {
+    width: 45px;
+    height: 51px;
+    background: url("img/barrel.png") no-repeat center;
+    background-size: cover;
+    position: absolute;
+}
+
+.life-in-panel {
+    width: 30px;
+    height: 30px;
+    background: url("img/dur-icon2.png") no-repeat center;
+    background-size: cover;
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.life {
+    width: 45px;
+    height: 45px;
+    background: url("img/dur-icon2.png") no-repeat center;
+    background-size: cover;
+    position: absolute;
+}
+
+.game-over {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 64px;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(255, 56, 56, 0.6);
+    z-index: 100;
+    position: relative;
+    text-shadow: 0 0 10px #FFFFFF;
+    color: #FFFFFF;
+    transition: 0.5s;
+}

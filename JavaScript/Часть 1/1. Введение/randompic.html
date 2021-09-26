@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    
+    <div id="myBlock">А</div>
+    
+    <script>
+        function randomInteger(min, max) {
+            let rand = min - 0.5 + Math.random() * (max - min + 1);
+            return Math.round(rand);
+        }
+
+       myBlock.addEventListener('click', function() {
+        myBlock.innerHTML = `<img src="img/${randomInteger(1, 6)}.png">`;
+       })
+    </script>
+</body>
+</html>

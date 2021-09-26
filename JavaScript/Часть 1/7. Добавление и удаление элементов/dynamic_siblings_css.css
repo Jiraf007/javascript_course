@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.object {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    margin: 10px;
+    text-align: center;
+}
+
+.violet {
+    background-color: violet !important;
+}
+

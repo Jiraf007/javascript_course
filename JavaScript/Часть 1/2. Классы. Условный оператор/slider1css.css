@@ -1,0 +1,48 @@
+.slide {
+    width: 300px;
+    height: 200px;
+}
+
+#slidesWrapper {
+    width: 1000px;
+    display: flex;
+}
+
+.show2 {
+    position: relative;
+    left: -300px;
+}
+
+.show3 {
+    position: relative;
+    left: -600px;
+}
+
+.viewport {
+    width: 300px;
+    height: 200px;
+    border: solid 2px #aaa;
+    overflow: hidden;
+}
+
+#pic1 {background-image: url(https://www.meme-arsenal.com/memes/e77529bc5454bebb776dbefd127f68f5.jpg);}
+#pic2 {background-image: url(https://www.meme-arsenal.com/memes/0cfa2a747bebd715ed93be1735f116f2.jpg);}
+#pic3 {
+    background-image: url(https://memepedia.ru/wp-content/uploads/2019/12/kot-gruzitsja-9.jpg);
+    background-size: contain;
+}
+
+.buttons {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin: 10px;
+}
+

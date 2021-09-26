@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    <div>
+        <button id="btn">Родить</button>
+    </div>
+    
+    
+    <script>
+        let arr = document.body.firstElementChild.children;
+        for (elem of arr) {
+            elem.addEventListener('click', function() {
+                newBtn = document.createElement('button');
+                newBtn.innerHTML = `Я слева`;
+                document.body.firstElementChild.insertBefore(newBtn, elem);
+            })
+            elem.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                newBtn = document.createElement('button');
+                newBtn.innerHTML = `Я справа`;
+                document.body.firstElementChild.appendChild(newBtn);
+            })
+
+        }
+
+    
+    </script>
+</body>
+</html>

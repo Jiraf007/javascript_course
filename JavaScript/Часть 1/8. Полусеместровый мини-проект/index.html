@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+  <header>
+    <div class="container">
+      <div class="left">
+       
+        <!--Элементы изменения профиля-->
+        <input type="text" id="userNameField" value="Иванов Сергей Борисович">
+        <label><input type="radio" name="malefemale" id="maleChkbx" checked>М</label>
+        <label><input type="radio" name="malefemale" id="femaleChkbx">Ж</label>
+        <button id="btnApplyProfileChngs">Применить</button>
+        
+      </div>
+      <div class="right">
+        
+        <!--Элементы отображения информации профиля-->
+        <span id="userName">Иванов С. Б.</span>
+        <img id="userPic" src="img/male.png">
+        
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      
+      <!--Изменение цветовой темы-->
+      <button id="btnChangeTheme">Сменить цветовую тему</button>
+     
+      <h1>Мои ключевые компетенции</h1>
+      
+      <!--Добавление компетенций-->
+      <input type="text" id="newCompetence" placeholder="Введите текст">
+      <button id="btnAddCompetence">Добавить</button>
+      <button id="btnClearCompetence">Очистить список</button>
+      
+      <ol id="competenceList">
+        <!--Компеенции добавляем сюда-->
+        
+      </ol>
+    </div>
+  </main>
+  
+  <script src="script.js"></script>
+</body>
+</html>

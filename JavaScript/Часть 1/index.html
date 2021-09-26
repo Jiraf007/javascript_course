@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="mysite.css">
+</head>
+<body>
+    
+    <script>
+        // Переменные для хранения параметров
+        let playerX;
+        let playerY;
+        let playerDirY;
+        let playerSpeed;
+    
+        function createPlayer() {
+            // создадим элемент DIV
+            let player = document.createElement("div");
+            // добавим к нему класс car
+            player.classList.add("car");
+            // вставим созданный элемент на страницу в конец body
+            document.body.appendChild(player);
+            
+            // Настроим параметры машинки
+            playerX = 40;
+            playerY = 0;
+            playerDirY = 0;
+            playerSpeed = 5;
+    
+            // вернем ссылку на добавленный на страницу элемент DIV, чтобы иметь к нему доступ
+            // в дальнейшем
+            return player;
+        }
+    
+        // примем и запомним ссылку на созданный в функции элемент машинки
+        // он пригодится нам дальше, чтобы управлять машинкой
+        let player = createPlayer();
+    </script>
+</body>
+</html>

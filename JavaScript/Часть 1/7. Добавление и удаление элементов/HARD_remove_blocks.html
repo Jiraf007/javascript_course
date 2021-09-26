@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="HARD_css.css">
+</head>
+<body>
+    <div class="container">
+    </div>
+    
+    
+    <script>
+        let a = 0;
+        let b = 0;
+        let aObject;
+        for (let i = 1; i <= 25; i++) {
+            min = 1;
+            max = 10;
+            color = Math.floor(Math.random() * (max - min)) + min; 
+            newDiv = document.createElement('div');
+            newDiv.style.width = 100 + 'px';
+            newDiv.style.height = 100 + 'px';
+            if (color % 2 == 0) newDiv.classList.add('yellow');
+            else newDiv.classList.add('blue');
+
+            newDiv.addEventListener('click', function(e) {
+                if (a == 0 && b == 0) {
+                    if (e.currentTarget.classList.contains('yellow')) a = 1;
+                    else a = 2;
+                    aObject = e.currentTarget;
+                }
+                else if (a != 0 && b == 0) {
+                    if (e.currentTarget.classList.contains('yellow')) b = 1;
+                    else b = 2;
+                    if (a == b) {
+                        e.currentTarget.classList.add('white');
+                        aObject.classList.add('white');
+                    }
+                    a = 0;
+                    b = 0;
+                }
+            });
+            document.body.firstElementChild.appendChild(newDiv);
+
+        }
+
+    
+    </script>
+</body>
+</html>

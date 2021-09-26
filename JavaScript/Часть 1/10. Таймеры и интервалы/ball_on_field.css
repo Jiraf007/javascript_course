@@ -1,0 +1,37 @@
+.pole {
+    width: 600px;
+    height: 600px;
+    background-color: green;
+}
+
+.ball {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.corner1 {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.corner2 {
+    position: relative;
+    top: 20px;
+    left: 520px;
+}
+
+.corner3 {
+    position: relative;
+    top: 520px;
+    left: 520px;
+}
+
+.corner4 {
+    position: relative;
+    top: 520px;
+    left: 20px;
+}

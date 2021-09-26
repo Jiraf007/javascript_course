@@ -1,0 +1,30 @@
+.residents {
+    margin: auto;
+    display: inline-block;
+}
+
+.resident {
+    display: inline-block;
+    vertical-align: top;
+    border: solid 2px pink;
+    padding: 10px;
+    width: 300px !important;
+    height: 300px;
+    margin: 10px;
+}
+
+.deleteAllBtn {
+    display: flex;
+}
+
+.deleteResident {
+    margin-top: 10px;
+}
+
+#deleteAll {
+    margin: auto;
+    margin-top: 10px;
+    width: 200px;
+    height: 50px;
+
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="css/uikit.min.css">
+    <style>
+        body{
+            background-color: #81ecec;
+        }
+    </style>
+</head>
+<body>
+    <!-- Здесь много страшной магии верстки. Игнорируем её, наша цель - скрипт!!! (^_~)  -->
+    <div class="uk-container uk-container-xsmall uk-flex uk-flex-middle" uk-height-viewport>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-large uk-card-body">
+            <div uk-grid>
+                <div class="uk-width-1-2">
+                    <!-- Это поле для ввода первого числа -->
+                    <input type="number" id="a" class="uk-input uk-form-large" placeholder="Введите A">
+                </div>
+                <div class="uk-width-1-2">
+                    <!-- Это поле для ввода второго числа -->
+                    <input type="number" id="b" class="uk-input uk-form-large" placeholder="Введите B">
+                </div>
+                <p class="uk-text-large uk-text-bolder uk-text-center uk-width-1-1 uk-text-danger">
+                    <!-- А вот тут span, в который надо выводить результат -->
+                    Результат = <span id="out">0</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Этот скрипт должен остаться подключенным!!! -->
+    <script src="js/uikit.min.js"></script>
+
+    <!-- А в этом теге пишем свой код -->
+    <script>
+        'use strict';
+        document.addEventListener('keydown', function(e) {
+            let aa = parseInt(a.value);
+            let bb = parseInt(b.value);
+            let k = e.key;
+            if (k == '=') out.innerHTML = aa + bb;
+            if (k == '-') out.innerHTML = aa - bb;
+            if (k == '=') out.innerHTML = aa + bb;
+            if (k.toLowerCase() == 'x' || k.toLowerCase() == 'ч') out.innerHTML = aa * bb;
+            if (k == '.' || k == '/') out.innerHTML = aa / bb;
+            
+        })
+        // Да-да, прямо вот тут пишем код  ( . .)φ__ 
+        
+    </script>
+</body>
+</html>
