@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: #7bed9f;
+    }
+    canvas{
+      background-color: #fff;
+      border: 1px solid #2D2D2D;
+      margin-top: 70px;
+      box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+    }
+  </style>
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+
+  <script>
+    'use strict';
+
+    let cnvEl = document.querySelector('canvas');
+
+    let cursor = {
+        x: 0,
+        y: 0
+    }
+
+    cnvEl.addEventListener('click', function(e){
+      cursor.y = e.clientY - cnvEl.getBoundingClientRect().top;
+      cursor.x = e.clientX - cnvEl.getBoundingClientRect().left;
+      alert(`Clicked at (${cursor.x}; ${cursor.y})`);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: solid 1px black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="800" height="400"></canvas>
+
+    <script>
+        let cnv = document.querySelector('canvas');
+        let cnx = cnv.getContext('2d');
+
+        let cursor = {
+            x: 400,
+            y: 200
+        }
+
+        let circle = {
+            x: 0,
+            y: 0
+        }
+
+        function drawCircle(x, y) {
+            cnx.beginPath();
+            cnx.fillStyle = 'black';
+            cnx.arc(circle.x, circle.y, 10, 0, Math.PI * 2);
+            cnx.fill();
+        }
+
+        function redraw() {
+            cnx.clearRect(0, 0, 800, 400);
+            drawCircle(circle.x, circle.y);
+        }
+
+        let alpha;
+        let speed = 2.5;
+
+
+        cnv.addEventListener('mousemove', function (e) {
+            cursor.y = e.clientY - cnv.getBoundingClientRect().top;
+            cursor.x = e.clientX - cnv.getBoundingClientRect().left;
+
+        })
+
+        let requestId;
+
+        drawing();
+        function drawing() {
+            alpha = Math.atan2(cursor.y - circle.y, cursor.x - circle.x) / Math.PI * 180;
+            circle.x += Math.round(speed * Math.cos(alpha * (Math.PI / 180)));
+            circle.y += Math.round(speed * Math.sin(alpha * (Math.PI / 180)));
+            redraw();
+            if ((cursor.x != circle.x) && (cursor.y != circle.y)) requestId = requestAnimationFrame(drawing);
+            else cancelAnimationFrame(requestId);
+        }
+
+
+    </script>
+</body>
+
+</html>

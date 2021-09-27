@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: #7bed9f;
+    }
+    canvas{
+      background-color: #fff;
+      border: 1px solid #2D2D2D;
+      margin-top: 70px;
+      box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+    }
+  </style>
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+
+  <script>
+    'use strict';
+
+    let cursor = {
+        x: 0,
+        y: 0
+    }
+
+    let cnv = document.querySelector('canvas');
+    let ctx = cnv.getContext('2d');
+
+    cnv.addEventListener('mousemove', function(e){
+        cursor.y = e.clientY - cnv.getBoundingClientRect().top;
+        cursor.x = e.clientX - cnv.getBoundingClientRect().left;
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.arc(cursor.x, cursor.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+    });
+  </script>
+</body>
+</html>

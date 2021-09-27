@@ -80,14 +80,17 @@
     // Создание класса спрайта - самостоятельно
     let Circle = class {
       constructor(x, y, r, color) {
-        this.x = x - r;
-        this.y = y - r;
+        this.x = x;
+        this.y = y;
         this.r = r;
         this.color = color;
       }
       move(x, y) {
         this.x += x;
         this.y += y;
+      }
+      growing(r) {
+        this.r += r;
       }
       draw() {
         ctx.beginPath();
@@ -96,6 +99,14 @@
         ctx.fill();
       }
     }
+
+    let cursor = {
+      x: 0,
+      y: 0
+    }
+
+    let distX;
+    let distY;
 
     // Создание нашего персонажа. Внутри скобок указать параметры
     let player = new Circle(400, 200, 10, 'green');
@@ -109,12 +120,13 @@
     }
 
     function collisionDetection(obj1, obj2) {
+      // console.log(obj1.r);
       let detect = false;
-      if (((obj1.y + obj1.r * 2) > obj2.y) && (obj1.y < (obj2.y + obj2.r * 2))) {
-        if (((obj1.x + obj1.r * 2) >= obj2.x) && (obj1.x <= (obj2.x + obj2.r * 2))) detect = true;
+      if (((obj1.y + obj1.r) > (obj2.y - obj2.r)) && ((obj1.y - obj1.r) < (obj2.y + obj2.r))) {
+        if (((obj1.x + obj1.r) >= (obj2.x - obj2.r)) && ((obj1.x - obj1.r) <= (obj2.x + obj2.r))) detect = true;
       }
-      if (((obj1.x + obj1.r * 2) > obj2.x) && (obj1.x < (obj2.x + obj2.r * 2))) {
-        if (((obj1.y + obj1.r * 2) == obj2.y) || (obj1.y == (obj2.y + obj2.r * 2))) detect = true;
+      if (((obj1.x + obj1.r) > (obj2.x - obj2.r)) && ((obj1.x - obj1.r) < (obj2.x + obj2.r))) {
+        if (((obj1.y + obj1.r) == (obj2.y - obj2.r)) || ((obj1.y - obj1.r) == (obj2.y + obj2.r))) detect = true;
       }
       return detect;
     }
@@ -132,77 +144,52 @@
       }
     }
 
-    redraw();
+    let speed = 2;
+    let alpha;
+
+    function drawing() {
+
+      alpha = Math.atan2(cursor.y - player.y, cursor.x - player.x) / Math.PI * 180;
+      distX = Math.round(speed * Math.cos(alpha * (Math.PI / 180)));
+      distY = Math.round(speed * Math.sin(alpha * (Math.PI / 180)));
+      player.move(distX, distY);
+
+      for (let index in targetsArr) {
+        if (collisionDetection(player, targetsArr[index])) {
+          player.growing(1);
+          targetsArr.splice(index, 1);
+          document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+        }
+      }
+      // console.log(player.x == cursor.x, player.y == cursor.y);
+      redraw();
+      requestAnimationFrame(drawing);
+    }
+
+    let timerId;
+
+    drawing();
     // ------Обработка нажатий на кнопки-------
-    // Движение вверх
-    document.addEventListener('keydown', function (e) {
-      if (e.key == 'ArrowUp') {
-        // 1. Передвигаем персонажа
-        player.move(0, -5);
-        // 2. Проверяем на соприкосновение с городом-целью
-        for (let index in targetsArr) {
-          if (collisionDetection(player, targetsArr[index])) {
-            targetsArr.splice(index, 1);
-            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
-          }
-        }
-        // 3. Перерисовываем всю сцену
-        redraw();
-        if (targetsArr.length == 0) {
-          document.querySelector('.info').innerHTML = 'YOU WON!';
-        }
-      }
+    document.addEventListener('mousemove', function (e) {
+      cursor.y = e.clientY - game.getBoundingClientRect().top;
+      cursor.x = e.clientX - game.getBoundingClientRect().left;
 
-      if (e.key == 'ArrowDown') {
-        // 1. Передвигаем персонажа
-        player.move(0, 5);
-        // 2. Проверяем на соприкосновение с городом-целью
-        for (let index in targetsArr) {
-          if (collisionDetection(player, targetsArr[index])) {
-            targetsArr.splice(index, 1);
-            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
-          }
-        }
-        // 3. Перерисовываем всю сцену
-        redraw();
-        if (targetsArr.length == 0) {
-          document.querySelector('.info').innerHTML = 'YOU WON!';
-        }
-      }
-
-      if (e.key == 'ArrowLeft') {
-        // 1. Передвигаем персонажа
-        player.move(-5, 0);
-        // 2. Проверяем на соприкосновение с городом-целью
-        for (let index in targetsArr) {
-          if (collisionDetection(player, targetsArr[index])) {
-            targetsArr.splice(index, 1);
-            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
-          }
-        }
-        // 3. Перерисовываем всю сцену
-        redraw();
-        if (targetsArr.length == 0) {
-          document.querySelector('.info').innerHTML = 'YOU WON!';
-        }
-      }
-
-      if (e.key == 'ArrowRight') {
-        // 1. Передвигаем персонажа
-        player.move(5, 0);
-        // 2. Проверяем на соприкосновение с городом-целью
-        for (let index in targetsArr) {
-          if (collisionDetection(player, targetsArr[index])) {
-            targetsArr.splice(index, 1);
-            document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
-          }
-        }
-        // 3. Перерисовываем всю сцену
-        redraw();
-        if (targetsArr.length == 0) {
-          document.querySelector('.info').innerHTML = 'YOU WON!';
-        }
-      }
+      // if (e.key == 'ArrowRight') {
+      //   // 1. Передвигаем персонажа
+      //   player.move(5, 0);
+      //   // 2. Проверяем на соприкосновение с городом-целью
+      //   for (let index in targetsArr) {
+      //     if (collisionDetection(player, targetsArr[index])) {
+      //       targetsArr.splice(index, 1);
+      //       document.querySelector('#score').innerHTML = parseInt(document.querySelector('#score').innerHTML) + 1;
+      //     }
+      //   }
+      //   // 3. Перерисовываем всю сцену
+      //   redraw();
+      //   if (targetsArr.length == 0) {
+      //     document.querySelector('.info').innerHTML = 'YOU WON!';
+      //   }
+      // }
     });
   </script>
 </body>
