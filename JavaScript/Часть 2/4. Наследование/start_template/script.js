@@ -1,7 +1,9 @@
 // Получаем контекст для рисования на Canvas
 let ctx = game.getContext('2d');
 
-
+let cnvWidth = document.documentElement.clientWidth;
+let cnvHeight = document.documentElement.clientHeight;
+console.log(cnvWidth, cnvHeight);
 
 
 // == ОПИСАНИЕ КЛАССОВ ========================================================
@@ -56,7 +58,7 @@ class DynamicCircle extends Circle {
 		this.r += r;
 	}
 	deceleration() {
-		this.speed -= 0.04;
+		this.speed -= 0.03;
 	}
 	decrease(r) {
 		this.r -= r;
@@ -116,6 +118,13 @@ class Bomb extends Circle {
 	}
 }
 
+class Bush extends Circle {
+	setPoint() {
+		this.x = getRandomInt(0, 800);
+		this.y = getRandomInt(0, 400);
+	}
+}
+
 
 
 
@@ -133,38 +142,65 @@ game.addEventListener('mousemove', function (e) {
 // создание массива, в котором будем хранить собираемые кружки
 let targetsArr = [];
 // наполняем массив
-for (let i = 0; i < 47; i++) {
+for (let i = 0; i < 27; i++) {
 	let x = getRandomInt(0, 800);
 	let y = getRandomInt(0, 400);
 	targetsArr.push(new Circle(x, y, 10, 'img/tomato.png'));
 }
 
+let tomatoTimer = setInterval(function () {
+	targetsArr.push(new Circle(getRandomInt(0, 800), getRandomInt(0, 400), 10, 'img/tomato.png'))
+}, 2000);
+
 // Создание нашего персонажа в позиции 100х100, радиусом 10, цвет - зеленый
 let player = new Player(100, 100, 10, 'img/happy-1.png', 2.5);
 
-let enemy = new Enemy(0, 0, 10, 'img/monster-1.png', 2);
+// let enemy = new Enemy(0, 0, 10, 'img/monster-1.png', 2);
+let enemiesArr = [];
+// наполняем массив
+for (let i = 0; i < 3; i++) {
+	let x = getRandomInt(0, 800);
+	let y = getRandomInt(0, 400);
+	enemiesArr.push(new Enemy(x, y, 10, 'img/monster-1.png', 2));
+}
+let enemyTimer = setInterval(function () {
+	let x = getRandomInt(0, 800);
+	let y = getRandomInt(0, 400);
+	enemiesArr.push(new Enemy(x, y, 10, 'img/monster-1.png', 2));
+}, 10000);
+
 
 let dynamicFood = new DynamicFood(getRandomInt(0, 800), getRandomInt(0, 400), 15, 'img/bell-pepper.png', 2);
 dynamicFood.pointX = dynamicFood.x;
 dynamicFood.pointY = dynamicFood.y;
-targetsArr.push(dynamicFood);
+let dynamicFoodTimer = setInterval(function () {
+	targetsArr.push(dynamicFood);
+}, 4000);
 
 let bomb = new Bomb(getRandomInt(0, 800), getRandomInt(0, 400), 10, 'img/bomb.png');
 
+let bush = new Bush(getRandomInt(0, 800), getRandomInt(0, 400), 15, 'img/bush.png')
+
 let background = new Image();
-background.src = 'img/background.jpg';
+background.src = 'img/background2.jpg';
 
 let requestId;
 let gameOverFlag = 0;
+let winFlag = 0;
 
 // Основной цикл игры. Здесь все пересчитывается и отрисовывается новый кадр
 // Выполняется снова и снова бесконечное кол--во раз
 function updState() {
 	player.moveToCursor();
 
-	if (targetsArr.length > 0) enemy.findTargetOf(targetsArr, player);
-	else enemy.setTarget(player);
-	enemy.moveToTarget();
+	if (enemiesArr.length != 0) {
+		for (let i in enemiesArr) {
+			if (targetsArr.length > 0) enemiesArr[i].findTargetOf(targetsArr, player);
+			else enemiesArr[i].setTarget(player);
+			enemiesArr[i].moveToTarget();
+		}
+
+	}
 
 	dynamicFood.setPoint();
 	dynamicFood.moveToRandomPoint();
@@ -176,10 +212,16 @@ function updState() {
 			player.deceleration();
 			targetsArr.splice(i, 1);
 		}
-		else if (enemy.hasCollisionWith(targetsArr[i])) {
-			enemy.growing(targetsArr[i].r / 10);
-			enemy.deceleration();
-			targetsArr.splice(i, 1);
+		else if (enemiesArr.length != 0) {
+			for (let i in enemiesArr) {
+				for (let j in targetsArr) {
+					if (enemiesArr[i].hasCollisionWith(targetsArr[j])) {
+						enemiesArr[i].growing(targetsArr[j].r / 10);
+						enemiesArr[i].deceleration();
+						targetsArr.splice(j, 1);
+					}
+				}
+			}
 		}
 	}
 
@@ -190,18 +232,48 @@ function updState() {
 		}
 		else gameOverFlag = 1;
 	}
-	if (enemy.hasCollisionWith(bomb)) {
-		enemy.decrease(enemy.r / 3);
-		bomb.setPoint();
+
+	if (player.hasCollisionWith(bush) && (player.r < bush.r)) {
+		player.decrease(player.r / 5);
+		if (player.r > 7) {
+			bomb.setPoint();
+		}
+		else gameOverFlag = 1;
 	}
 
-	if (enemy.hasCollisionWith(player)) {
-		gameOverFlag = 1;
+	if (enemiesArr.length != 0) {
+		for (let i in enemiesArr) {
+			if (enemiesArr[i].hasCollisionWith(bomb)) {
+				enemiesArr[i].decrease(enemiesArr[i].r / 3);
+				if (enemiesArr[i].r > 7) {
+					bomb.setPoint();
+				}
+				else enemiesArr.splice(i, 1);
+			}
+			else if (enemiesArr[i].hasCollisionWith(bush) && (enemiesArr[i].r < bush.r)) {
+				enemiesArr[i].decrease(enemiesArr[i].r / 5);
+				if (enemiesArr[i].r > 7) {
+					bomb.setPoint();
+				}
+				else enemiesArr.splice(i, 1);
+			}
+			else if (enemiesArr[i].hasCollisionWith(player)) {
+				if (player.r <= enemiesArr[i].r) gameOverFlag = 1;
+				else {
+					player.growing(enemiesArr[i].r / 10);
+					enemiesArr.splice(i, 1);
+				}
+			}
+		}
 	}
 
+	if (enemiesArr.length == 0) winFlag = 1;
 
 	if (gameOverFlag == 1) {
 		gameOver();
+	}
+	else if (winFlag == 1) {
+		win();
 	}
 	else {
 		requestId = requestAnimationFrame(updState);
@@ -228,9 +300,13 @@ function redraw() {
 	// рисуем игрока
 	player.draw();
 
-	enemy.draw();
+	for (let i in enemiesArr) {
+		enemiesArr[i].draw();
+	}
 
 	bomb.draw();
+
+	bush.draw();
 
 	//перерисовываем города-цели
 	for (let index in targetsArr) {
@@ -238,13 +314,30 @@ function redraw() {
 	}
 }
 
-function gameOver() {
+
+function stopAnimation() {
 	cancelAnimationFrame(requestId);
+	clearInterval(tomatoTimer);
+	clearInterval(dynamicFoodTimer);
+	clearInterval(enemyTimer);
+}
+
+function gameOver() {
+	stopAnimation();
 	ctx.clearRect(0, 0, 800, 400);
 	ctx.font = "48px serif";
 	ctx.textAlign = 'center';
 	ctx.textBaseline = 'middle';
 	ctx.fillText('GAME OVER', 400, 200);
+}
+
+function win() {
+	stopAnimation();
+	ctx.clearRect(0, 0, 800, 400);
+	ctx.font = "48px serif";
+	ctx.textAlign = 'center';
+	ctx.textBaseline = 'middle';
+	ctx.fillText('YOU WON', 400, 200);
 }
 
 
