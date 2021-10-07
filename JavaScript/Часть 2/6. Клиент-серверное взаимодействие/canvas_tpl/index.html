@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Живой canvas</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+	<style>
+		canvas{
+			background-color: #fff;
+		}
+	</style>
+</head>
+
+<body uk-height-viewport="offset-top: true" class="uk-background-muted uk-flex uk-flex-center uk-flex-middle">
+
+	<canvas height="500" width="800" class="uk-box-shadow-large"></canvas>
+
+
+	<script src="js/uikit.min.js"></script>
+	<script src="js/uikit-icons.min.js"></script>
+	
+	<script>
+		'use strict';
+		
+		let canvas = document.querySelector('canvas');
+		let ctx = canvas.getContext('2d');
+		
+		
+		// Обработка клика на canvas
+		canvas.addEventListener('click', function(e){
+			// получаем координаты клика относительно canvas, а не окна
+			let clickX = e.clientX - canvas.getBoundingClientRect().left;
+			let clickY = e.clientY - canvas.getBoundingClientRect().top;
+			
+			// отправить запрос на адрес http://api.oneteacher.space/canvas/setpoint.php
+			// с параметрами x=clickX и y=clickY
+			// (написать код самостоятельно)
+		});	
+		
+		
+		//  создать интервал, который будет каждые 500мс:
+		//  - отправлять запрос на адрес http://api.oneteacher.space/canvas/points.php
+		//  - преобразовывать ответ из JSON-строки в массив объектов
+		//  - обходить полученный массив и рисовать точки при помощи функции drawPoint()
+		//  - перед отрисовкой точек очищать канвас
+		//  Точки отдаются в формате {
+		//    x: 10,
+		//    y: 10,
+		//    color: #123fea
+		//  } 
+		
+		
+		// === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =================================================
+		
+		// Рисование точки на canvas с заданными параметрами
+		function drawPoint(x, y,color){
+			ctx.beginPath();
+			ctx.arc(x, y, 5, 0, Math.PI * 2);
+			ctx.fillStyle = color;
+			ctx.fill();
+		}
+		
+	</script>
+</body>
+
+</html>

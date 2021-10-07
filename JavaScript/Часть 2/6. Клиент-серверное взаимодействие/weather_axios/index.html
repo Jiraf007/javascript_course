@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Погода в Москве</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+	<script src="axios.min.js"></script>
+</head>
+
+<body>
+	<div class="uk-container uk-container-xsmall">
+
+		<div class="uk-card uk-card-default uk-card-hover uk-card-body uk-width-2-3 uk-margin-top">
+			<div uk-grid>
+				<div class="uk-width-1-3">
+					<img src="icon.png" class="uk-width-1-1" id="icon">
+				</div>
+				<div class="uk-width-2-3">
+					<p class="uk-text-lead uk-text-bold">
+						<span id="temp">5</span> °C
+						<span class="uk-text-small uk-text-primary">
+							(ощущается как <span id="feel">0</span> °C)
+						</span>
+					</p>
+					<p class="uk-text-muted">Ветер: <span id="wind">2</span> м/c</p>
+					<p class="uk-text-muted">Влажность: <span id="humidity">70</span>%</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="js/uikit.min.js"></script>
+	<script src="js/uikit-icons.min.js"></script>
+	<script>
+		function toInt(string, addSign) {
+			let int = Math.round(parseFloat(string));
+			if (addSign == 1) {
+				if (int > 0) {
+					int = '+' + int;
+				}
+			}
+			return int;
+		}
+
+
+		let temp = document.getElementById('temp');
+		let feel = document.getElementById('feel');
+		let wind = document.getElementById('wind');
+		let humidity = document.getElementById('humidity');
+		let icon = document.getElementById('icon');
+
+		axios({
+			url: 'https://api-javascript.herokuapp.com/api/weather/json.php',
+			method: 'get',
+			responseType: 'json'
+		})
+			.then(function (response) {
+				temp.innerHTML = toInt(response.data.temp, 1);
+				feel.innerHTML = toInt(response.data.feel, 1);
+				wind.innerHTML = toInt(response.data.wind, 0);
+				humidity.innerHTML = toInt(response.data.humidity, 0);
+				icon.setAttribute('src', response.data.img);
+			})
+
+
+
+	</script>
+</body>
+
+</html>
