@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script src="axios.min.js"></script>
+</head>
+
+<body>
+	<!--НАЧАЛО: Шапка-->
+	<div class="uk-background-primary uk-light uk-padding-small uk-padding-remove-horizontal">
+		<div class="uk-container">
+			<a href="#" class="uk-logo">
+				<strong>ITBlog</strong> | Лучший блог об IT-технологиях
+			</a>
+		</div>
+	</div>
+	<!--КОНЕЦ: Шапка-->
+
+	<!--НАЧАЛО: Контейнер (собирает содержимое в колонку огр. ширины и центрирует)-->
+	<div class="uk-container uk-margin-medium-top">
+		<!--НАЧАЛО: Сетка (2 колонки)-->
+		<div uk-grid>
+
+			<!--НАЧАЛО: Основное содержимое-->
+			<main class="uk-width-2-3">
+				<h1>Я написал свой online Paint!</h1>
+
+				<p>Просто выбирай цвет и рисуй! :) </p>
+
+				<!--Поле выбора цвета кисти-->
+				<input type="color" id="colorField"><br>
+				<!--Холст для рисования-->
+				<canvas width="600" height="300"></canvas>
+
+				<!--Текст статьи о том, какой у нас классный Paint-->
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias corporis atque recusandae laborum
+					nisi iste suscipit fuga. Cupiditate, beatae fuga numquam voluptas vitae eaque odio, distinctio saepe
+					id tempore totam ea quod adipisci eius, cum provident, explicabo consectetur architecto nesciunt
+					nostrum sunt necessitatibus tempora et. Commodi aliquid eaque sint labore, atque vitae expedita
+					quasi repellendus eveniet harum laborum alias ad consequuntur magni modi! Non soluta porro eos
+					facere autem quia asperiores quod dolores quibusdam sed. Facilis reprehenderit a fuga consectetur!
+					Eveniet doloremque ex impedit, corporis explicabo quia. Et voluptatum vero, sunt quas cum, ullam
+					natus voluptates commodi placeat ex, eaque.</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias corporis atque recusandae laborum
+					nisi iste suscipit fuga. Cupiditate, beatae fuga numquam voluptas vitae eaque odio, distinctio saepe
+					id tempore totam ea quod adipisci eius, cum provident, explicabo consectetur architecto nesciunt
+					nostrum sunt necessitatibus tempora et. Commodi aliquid eaque sint labore, atque vitae expedita
+					quasi repellendus eveniet harum laborum alias ad consequuntur magni modi! Non soluta porro eos
+					facere autem quia asperiores quod dolores quibusdam sed. Facilis reprehenderit a fuga consectetur!
+					Eveniet doloremque ex impedit, corporis explicabo quia. Et voluptatum vero, sunt quas cum, ullam
+					natus voluptates commodi placeat ex, eaque.</p>
+
+			</main>
+			<!--КОНЕЦ: Основное содержимое-->
+
+
+
+
+			<!--НАЧАЛО: Боковая панель-->
+			<aside class="uk-width-1-3">
+
+				<!--Рекламный блок 1-->
+				<div class="uk-padding">
+					<img src="placeholder.jpg" id="ads_1">
+				</div>
+				<!--Рекламный блок 2-->
+				<div class="uk-padding">
+					<img src="placeholder.jpg" id="ads_2">
+				</div>
+				<!--Рекламный блок 3-->
+				<div class="uk-padding">
+					<img src="placeholder.jpg" id="ads_3">
+				</div>
+
+			</aside>
+			<!--КОНЕЦ: Боковая панель-->
+
+		</div>
+		<!--КОНЕЦ: Сетка-->
+	</div>
+	<!--КОНЕЦ: Контейнер-->
+
+	<script src="js/uikit.min.js"></script>
+	<script src="js/uikit-icons.min.js"></script>
+	<script src="js/paint.js"></script>
+	<script>
+		'use strict';
+
+		/* 
+			Получить от сервера URL банера для 1-го рекламного 
+			блока отправкой XMLHttpRequest на адрес http://api.oneteacher.space/ads/getbanner.php
+			Заменить атрибут src у элемента с id="ads_1" на полученный от сервера URL
+		*/
+
+		axios({
+			url: 'https://api-javascript.herokuapp.com/api/ads/getbanner.php',
+			method: 'get',
+			responseType: 'json'
+		})
+			.then(function (response) {
+				// console.log(response.data);
+				document.getElementById(`ads_1`).setAttribute('src', response.data);
+			})
+
+		axios({
+			url: 'https://api-javascript.herokuapp.com/api/ads/getbanner.php',
+			method: 'get',
+			responseType: 'json'
+		})
+			.then(function (response) {
+				// console.log(response.data);
+				document.getElementById(`ads_2`).setAttribute('src', response.data);
+			})
+
+		axios({
+			url: 'https://api-javascript.herokuapp.com/api/ads/getbanner.php',
+			method: 'get',
+			responseType: 'json'
+		})
+			.then(function (response) {
+				// console.log(response.data);
+				document.getElementById(`ads_3`).setAttribute('src', response.data);
+			})
+
+
+		/*
+			Получить от сервера URL банера для 2-го рекламного
+			блока отправкой XMLHttpRequest на адрес http://api.oneteacher.space/ads/getbanner.php
+			Заменить атрибут src у элемента с id="ads_2" на полученный от сервера URL
+		*/
+
+		/*
+			Получить от сервера URL банера для 3-го рекламного
+			блока отправкой XMLHttpRequest на адрес http://api.oneteacher.space/ads/getbanner.php
+			Заменить атрибут src у элемента с id="ads_3" на полученный от сервера URL
+		*/
+	</script>
+</body>
+
+</html>

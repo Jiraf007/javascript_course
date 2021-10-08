@@ -6,10 +6,12 @@
 	<title>Живой canvas</title>
 	<link rel="stylesheet" href="css/uikit.min.css">
 	<style>
-		canvas{
+		canvas {
 			background-color: #fff;
 		}
 	</style>
+	<script src="axios.min.js"></script>
+
 </head>
 
 <body uk-height-viewport="offset-top: true" class="uk-background-muted uk-flex uk-flex-center uk-flex-middle">
@@ -19,26 +21,31 @@
 
 	<script src="js/uikit.min.js"></script>
 	<script src="js/uikit-icons.min.js"></script>
-	
+
 	<script>
 		'use strict';
-		
+
 		let canvas = document.querySelector('canvas');
 		let ctx = canvas.getContext('2d');
-		
-		
+
+
 		// Обработка клика на canvas
-		canvas.addEventListener('click', function(e){
+		canvas.addEventListener('click', function (e) {
 			// получаем координаты клика относительно canvas, а не окна
 			let clickX = e.clientX - canvas.getBoundingClientRect().left;
 			let clickY = e.clientY - canvas.getBoundingClientRect().top;
-			
+			console.log(clickX, clickY);
+
 			// отправить запрос на адрес http://api.oneteacher.space/canvas/setpoint.php
 			// с параметрами x=clickX и y=clickY
 			// (написать код самостоятельно)
-		});	
-		
-		
+			axios({
+				url: `https://api-javascript.herokuapp.com/api/canvas/setpoint.php?x=${clickX}&y=${clickY}`,
+				method: 'get'
+			})
+		});
+
+
 		//  создать интервал, который будет каждые 500мс:
 		//  - отправлять запрос на адрес http://api.oneteacher.space/canvas/points.php
 		//  - преобразовывать ответ из JSON-строки в массив объектов
@@ -49,18 +56,33 @@
 		//    y: 10,
 		//    color: #123fea
 		//  } 
-		
-		
+
+		setInterval(function () {
+			axios({
+				url: 'https://api-javascript.herokuapp.com/api/canvas/points.php',
+				method: 'get',
+				responseType: 'json'
+			})
+				.then(function (response) {
+					// console.log(response.data);
+					ctx.clearRect(0, 0, 800, 500);
+					for (let elem of response.data) {
+						drawPoint(elem.x, elem.y, elem.color);
+					}
+				})
+		}, 500)
+
+
 		// === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =================================================
-		
+
 		// Рисование точки на canvas с заданными параметрами
-		function drawPoint(x, y,color){
+		function drawPoint(x, y, color) {
 			ctx.beginPath();
 			ctx.arc(x, y, 5, 0, Math.PI * 2);
 			ctx.fillStyle = color;
 			ctx.fill();
 		}
-		
+
 	</script>
 </body>
 
